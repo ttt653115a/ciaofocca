@@ -4,9 +4,9 @@
 <section id="focacce"><h2>🇮🇹 Nasze focaccie</h2><p>Wybierz rozmiar i dodaj do koszyka. Składniki możesz zmienić w uwagach do zamówienia.</p><div id="focaccia-cards" class="grid"></div></section>
 <section id="own"><h2>🥪 Skomponuj własną kanapkę</h2><div class="card"><label for="bread">Wybierz pieczywo</label><select id="bread"><option value="focaccia">Focaccia, 8 zł</option><option value="ciabatta">Ciabatta, 6 zł</option></select><h3>Kolorowe dodatki</h3><p class="muted">Kliknij składnik, aby dodać lub usunąć. Każdy dodatek jest liczony osobno.</p><div id="extras" class="extras"></div><div class="row"><strong id="own-price">Razem: 8 zł</strong><button id="add-own">Dodaj kompozycję</button></div></div></section>
 <section id="drinks"><h2>☕ Napoje</h2><div class="grid" id="drink-cards"></div></section>
-<section id="basket"><h2>🛍️ Twoje zamówienie</h2><div id="basket-items">Koszyk jest pusty.</div><div class="row"><span>Łącznie</span><span id="total">0 zł</span></div><hr><h3>Dane do zamówienia</h3><label for="customer">Imię</label><input id="customer" autocomplete="given-name" placeholder="np. Piotr"><label for="phone">Telefon</label><input id="phone" type="tel" autocomplete="tel" placeholder="Numer telefonu"><label for="mode">Odbiór</label><select id="mode"><option value="Odbiór osobisty">Odbiór osobisty</option><option value="Dostawa - do potwierdzenia">Dowóz od 10 szt., Jelenia Góra i okolice</option></select><p class="muted">Dowóz dostępny od 10 kanapek/focacci. Cena i godzina dostawy wymagają potwierdzenia.</p><label for="address">Adres dostawy, jeśli dotyczy</label><input id="address" autocomplete="street-address" placeholder="Ulica, miejscowość"><label for="when">Godzina odbioru / dostawy</label><input id="when" type="time"><label for="notes">Uwagi do zamówienia, zmiana składników, imiona osób</label><textarea rows="3" id="notes" placeholder="np. Francesco bez rukoli, dla Izy"></textarea><div class="note" id="connection-note">Wersja demonstracyjna: zamówienie zostanie przygotowane do skopiowania. Automatyczne wysyłanie do CIAO FOCCA będzie dostępne po podłączeniu prywatnego arkusza Google.</div><button id="submit-order">Przygotuj zamówienie</button><button class="secondary" id="copy-order" style="display:none">Kopiuj zamówienie</button><textarea rows="9" id="order-text" style="display:none;margin-top:12px" readonly></textarea><p class="muted">Zamówienie nie jest przyjęte, dopóki obsługa CIAO FOCCA go nie potwierdzi.</p></section></main><a class="sticky-cart" href="#basket" id="cart-counter">🛍️ Koszyk: 0 zł</a><footer>© CIAO FOCCA • Smacznego!</footer><script>
+<section id="basket"><h2>🛍️ Twoje zamówienie</h2><div id="basket-items">Koszyk jest pusty.</div><div class="row"><span>Łącznie</span><span id="total">0 zł</span></div><hr><h3>Dane do zamówienia</h3><label for="customer">Imię</label><input id="customer" autocomplete="given-name" placeholder="np. Piotr"><label for="phone">Telefon</label><input id="phone" type="tel" autocomplete="tel" placeholder="Numer telefonu"><label for="mode">Odbiór</label><select id="mode"><option value="Odbiór osobisty">Odbiór osobisty</option><option value="Dostawa - do potwierdzenia">Dowóz od 10 szt., Jelenia Góra i okolice</option></select><p class="muted">Dowóz dostępny od 10 kanapek/focacci. Cena i godzina dostawy wymagają potwierdzenia.</p><label for="address">Adres dostawy, jeśli dotyczy</label><input id="address" autocomplete="street-address" placeholder="Ulica, miejscowość"><label for="when">Godzina odbioru / dostawy</label><input id="when" type="time"><label for="notes">Uwagi do zamówienia, zmiana składników, imiona osób</label><textarea rows="3" id="notes" placeholder="np. Francesco bez rukoli, dla Izy"></textarea><div class="note" id="connection-note">Po wysłaniu sprawdzimy zapis w systemie. Zamówienie jest przyjęte dopiero po potwierdzeniu przez obsługę CIAO FOCCA.</div><button id="submit-order">Wyślij zamówienie</button><button class="secondary" id="copy-order" style="display:none">Kopiuj zamówienie</button><textarea rows="9" id="order-text" style="display:none;margin-top:12px" readonly></textarea><p class="muted">Zamówienie nie jest przyjęte, dopóki obsługa CIAO FOCCA go nie potwierdzi.</p></section></main><a class="sticky-cart" href="#basket" id="cart-counter">🛍️ Koszyk: 0 zł</a><footer>© CIAO FOCCA • Smacznego!</footer><script>
 // Wpisz publiczny URL wdrożonej aplikacji Google Apps Script dopiero po jej uruchomieniu.
-const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyd44k4kKHXeT3KpC5kiVvv8P57rhz_lRFHgzUUUBaQ8LYTq5DM87cLdblENlFd8uFIRA/exec';
+const GOOGLE_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyd44k4kKHXeT3KpC5kiVvv8P57rhz_lRFHgzUUUBaQ8LYTq5DM87cLdblENlFd8uFIRA/exec'; // Uzupełnić wyłącznie zweryfikowanym adresem Apps Script
 const focacce=[['Francesco',27,32],['Paolina',25,30],['Beatrice',30,35],['Davide',29,34],['Vittorio',23,28],['Vittoria',26,31],['Isabella',22,27],['Patrizio',24,29]];
 const extras=[['Pomidor',3],['Rukola',3],['Cebula czerwona',3],['Ogórek konserwowy',3],['Oliwki',3],['Suszone pomidory',3],['Pesto genovese',3],['Sos bazyliowy',3],['Sos serowy',3],['Sos musztardowy',3],['Sos meksykański',3],['Sos musztardowo-miodowy',3],['Mozzarella',4],['Provolone',4],['Scamorza',4],['Krem pistacjowy',4],['Szynka',6],['Mortadella',6],['Salami',6],['Crudo',6],['Coppa',6],['Stracciatella',6]];
 const drinks=[['Włoska czekolada ciemna',12,'200 ml'],['Włoska czekolada biała',12,'200 ml'],['Kawa sypana',10,''],['Kawa z mlekiem',12,'']];
@@ -23,6 +23,79 @@ function priceOwn(){let base=el('bread').value==='focaccia'?8:6;el('own-price').
 el('add-own').onclick=()=>{let bread=el('bread').value;let base=bread==='focaccia'?8:6;let list=[...selected].map(i=>extras[i]);add('Własna kompozycja: '+bread,base+list.reduce((a,x)=>a+x[1],0),list.length?list.map(x=>x[0]).join(', '):'Bez dodatków');selected.clear();el('extras').querySelectorAll('button').forEach(b=>{b.classList.remove('selected');b.setAttribute('aria-pressed','false')});priceOwn();location.hash='#basket'};
 function order(){if(!cart.length){alert('Dodaj coś do koszyka.');return null}if(!el('customer').value.trim()||!el('phone').value.trim()){alert('Podaj imię i telefon.');return null}if(el('mode').value.startsWith('Dostawa')){let pieces=cart.filter(c=>/Focaccia|kompozycja/i.test(c.name)).length;if(pieces<10){alert('Dowóz na terenie Jeleniej Góry i okolic dostępny jest od 10 focacci lub kanapek. Obecnie: '+pieces+'.');return null}if(!el('address').value.trim()){alert('Wpisz adres dostawy.');return null}}return {createdAt:new Date().toISOString(),name:el('customer').value.trim(),phone:el('phone').value.trim(),mode:el('mode').value,address:el('address').value.trim(),time:el('when').value,notes:el('notes').value.trim(),items:cart,total:cart.reduce((a,x)=>a+x.price,0)}}
 function formatted(o){return ['CIAO FOCCA • ZAMÓWIENIE','Imię: '+o.name,'Telefon: '+o.phone,'Odbiór: '+o.mode,'Adres: '+o.address,'Godzina: '+o.time,'',...o.items.map((x,i)=>`${i+1}. ${x.name} (${x.detail}) • ${money(x.price)}`),'','SUMA: '+money(o.total),'Uwagi: '+o.notes,'','Zamówienie wymaga potwierdzenia przez obsługę.'].join('\n')}
-el('submit-order').onclick=async()=>{let o=order();if(!o)return;el('order-text').value=formatted(o);el('order-text').style.display='block';el('copy-order').style.display='inline-block';if(!GOOGLE_SCRIPT_URL){el('connection-note').textContent='Tryb demonstracyjny. Zamówienie jest gotowe do skopiowania, ale NIE zostało wysłane.';return}try{await fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)});el('connection-note').textContent='Wysłano żądanie, ale zapis nie jest potwierdzony. Zamówienie obowiązuje dopiero po potwierdzeniu przez obsługę CIAO FOCCA.'}catch(e){el('connection-note').textContent='Nie udało się przesłać danych. Skopiuj zamówienie i przekaż je obsłudze.'}};
+
+// Stały identyfikator jednej próby wysłania. Ponowne kliknięcie nie tworzy nowego zamówienia.
+let sending=false;
+let pendingOrder=null;
+try { pendingOrder=JSON.parse(localStorage.getItem('ciao-pending-order')||'null'); } catch {}
+const submitButton=el('submit-order');
+const orderNote=el('connection-note');
+function orderStatus(id){
+  return new Promise(resolve=>{
+    const cb='ciaoStatus_'+Math.random().toString(36).slice(2);
+    const sc=document.createElement('script');
+    let done=false;
+    function finish(data){if(done)return;done=true;clearTimeout(timer);delete window[cb];sc.remove();resolve(data)}
+    window[cb]=data=>finish(data);
+    const timer=setTimeout(()=>finish(null),7000);
+    sc.onerror=()=>finish(null);
+    sc.src=GOOGLE_SCRIPT_URL+'?action=status&orderId='+encodeURIComponent(id)+'&callback='+encodeURIComponent(cb)+'&_='+Date.now();
+    document.head.appendChild(sc);
+  });
+}
+async function verifyOrder(id){
+  for(let i=0;i<4;i++){
+    const status=await orderStatus(id);
+    if(status && status.saved===true && status.orderId===id)return true;
+    if(i<3)await new Promise(r=>setTimeout(r,1700));
+  }
+  return false;
+}
+async function submitOrder(){
+  if(sending)return;
+  if(pendingOrder){
+    sending=true;submitButton.disabled=true;
+    submitButton.textContent='Sprawdzam zapis…';
+    const ok=await verifyOrder(pendingOrder.orderId);
+    if(ok){
+      orderNote.textContent='✅ Zapis zamówienia '+pendingOrder.orderId+' został potwierdzony w systemie. Obsługa CIAO FOCCA musi jeszcze potwierdzić przyjęcie zamówienia.';
+      pendingOrder=null;localStorage.removeItem('ciao-pending-order');
+      cart=[];render();
+    }else{
+      orderNote.textContent='⚠️ Nie możemy potwierdzić zapisu. NIE wysyłaj ponownie. Skontaktuj się z obsługą i podaj numer: '+pendingOrder.orderId+'. Możesz spróbować ponownie przyciskiem „Sprawdź zapis”, bez wysyłania kolejnego zamówienia.';
+    }
+    sending=false;submitButton.disabled=false;
+    submitButton.textContent=pendingOrder?'Sprawdź zapis':'Wyślij zamówienie';
+    return;
+  }
+  const o=order();if(!o)return;
+  o.orderId='CF-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,8).toUpperCase();
+  el('order-text').value=formatted(o)+'\nNumer: '+o.orderId;
+  el('order-text').style.display='block';el('copy-order').style.display='inline-block';
+  if(!GOOGLE_SCRIPT_URL){orderNote.textContent='Brak adresu aplikacji. Zamówienie NIE zostało wysłane.';return}
+  pendingOrder=o;localStorage.setItem('ciao-pending-order',JSON.stringify(o));
+  sending=true;submitButton.disabled=true;submitButton.textContent='Wysyłam…';
+  try{
+    await fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)});
+    orderNote.textContent='Sprawdzam zapis zamówienia '+o.orderId+'…';
+  }catch(e){
+    orderNote.textContent='⚠️ Połączenie przerwane. Nie ponawiaj zamówienia. Sprawdzam, czy mimo to dotarło do Google…';
+  }
+  const ok=await verifyOrder(o.orderId);
+  if(ok){
+    orderNote.textContent='✅ Zapis zamówienia '+o.orderId+' został potwierdzony w systemie. Przyjęcie i czas realizacji musi jeszcze potwierdzić obsługa CIAO FOCCA.';
+    pendingOrder=null;localStorage.removeItem('ciao-pending-order');
+    cart=[];render();
+  }else{
+    orderNote.textContent='⚠️ Zapis zamówienia nie jest potwierdzony. NIE wysyłaj ponownie. Zachowaj numer '+o.orderId+' i skontaktuj się z obsługą. „Sprawdź zapis” sprawdza status bez ponownej wysyłki.';
+  }
+  sending=false;submitButton.disabled=false;
+  submitButton.textContent=pendingOrder?'Sprawdź zapis':'Wyślij zamówienie';
+}
+submitButton.onclick=submitOrder;
+if(pendingOrder){
+  submitButton.textContent='Sprawdź zapis';
+  orderNote.textContent='Masz zamówienie o niepotwierdzonym statusie ('+pendingOrder.orderId+'). Kliknij „Sprawdź zapis”. Nie wysyłaj drugiego.';
+}
 el('copy-order').onclick=async()=>{try{await navigator.clipboard.writeText(el('order-text').value);alert('Skopiowano zamówienie.')}catch{el('order-text').select();document.execCommand('copy')}};render();
 </script></body></html>
